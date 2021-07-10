@@ -27,8 +27,8 @@ class Image(models.Model):
     image = models.ImageField(upload_to = 'images/',default='SOME IMAGE')
     image_name = models.CharField(max_length=50)
     image_caption = models.CharField(max_length=200)
-    profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User,on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='images')
+    likes = models.ManyToManyField(Profile)
     date_created = models.DateTimeField(auto_now_add = True)
 
 
@@ -40,7 +40,7 @@ class Image(models.Model):
 
     @classmethod
     def update_caption(cls,new_caption):
-        cls.objects.filter(id = ).update(image_caption =new_caption)
+        cls.objects.filter(id = 2 ).update(image_caption =new_caption)
 
     def all_likes(self):
         return self.likes.count()
@@ -70,8 +70,8 @@ class Comment(models.Model):
 
 
 class Follow(models.Model):
-    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
-    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE,related_name='follower')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE,related_name='followed')
 
     def __str__(self):
         return f'{self.follower} Follow'
