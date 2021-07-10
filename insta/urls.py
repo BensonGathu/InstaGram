@@ -6,7 +6,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('',views.index,name="index"),
-    path('comment/<id>',views.comments,name="comments")
+    path('comment/<id>',views.comments,name="comments"),
+    path('new/image/', views.upload_image, name='new-image'),
+
 ]
 
 if settings.DEBUG:

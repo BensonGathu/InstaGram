@@ -1,4 +1,5 @@
 from . models import Image
+from django import forms
 
 class UploadImageForm(forms.ModelForm):
     class Meta:
