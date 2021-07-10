@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
+
 
 # Create your models here.
 
@@ -63,13 +65,13 @@ class Comment(models.Model):
         self.save()
         
     def __str__(self):
-        return self.image
+        return self.comment
     def delete_comment(self):
         self.delete()
     
     @classmethod
     def get_comments(cls,image_id):
-        return cls.objects.filter(image__id=image_id).all()
+        return cls.objects.filter(image__pk=image_id).all()
 
 
 class Follow(models.Model):
