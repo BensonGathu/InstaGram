@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Profile(models.Model):
-    profile_photo = models.ImageField(upload_to = 'images',default='SOME IMAGE')
+    profile_photo = models.ImageField(upload_to = 'profile/',default='SOME IMAGE')
     bio = models.CharField(max_length=200)
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -44,9 +44,12 @@ class Image(models.Model):
 
     def all_likes(self):
         return self.likes.count()
+    @classmethod
+    def all_images(cls):
+        return cls.objects.all()
 
     def __str__(self):
-        return image_name
+        return self.image_name
 
 
 

@@ -3,4 +3,9 @@
 {% block content %}
 {{block.super}}
 <h1>Welcome {{name}}</h1>
+{% for images in all_images %}
+<img src="{{images.image.url}}" alt="">
+{{images.image_name}}
+
+{%endfor%}
 {%endblock%}
