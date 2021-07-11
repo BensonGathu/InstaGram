@@ -51,7 +51,7 @@ def index(request):
 def comments(request):
     image_id= request.GET.get("comments_image_id")
 
-    all_comments = Comment.get_comments(image_id)
+    all_comments = Comment.get
     comments = []
     return render(request,"comments.html",{"all_comments":all_comments})
 

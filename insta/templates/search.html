@@ -1,3 +1,23 @@
-{{message}}
+{%extends 'base.html'%} 
+{% block content %}
+<div class="container">
 
-{{searched_profiles}}
+  <div class="row">
+    {% if searched_profiles%}
+      <h2>Found {{ searched_profiles|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2> Found 0 Images for the search term/location {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+    {% if searched_profiles %}
+    {% for profile in searched_profiles %}
+        {{profile.user.username}}
+        <img src="{{profile.profile_photo.url}}" alt="" style="height: 25px;">
+    {% endfor%}
+    {% endif %}
+  </div>
+</div>
+  {%endblock%}
