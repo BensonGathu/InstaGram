@@ -93,7 +93,7 @@ def upload_image(request):
 def search_profile(request):
     if 'username' in request.GET and request.GET["username"]:
         search_name = request.GET.get("username")
-        searched_profiles = Profile.search_profile(searched_profiles)
+        searched_profiles = Profile.search_profile(search_name)
         message = f"{search_name}"
 
         return render(request,"search.html",{"message":message,"searched_profiles":searched_profiles})
