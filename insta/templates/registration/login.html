@@ -34,7 +34,9 @@
                             </div> -->
                             <button type="submit" id="btn" class="btn btn-success btn-block">Login</button>
                     </form>
-                    {{form.errors}}
+                    {% for message in messages %}
+                        <p id="messages">{{message}}</p>
+                    {% endfor %}
                     <br>
                     <div id="p" class="text-center">
                         <a class="small" href="#">Forgot Password?</a>
