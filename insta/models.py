@@ -48,7 +48,7 @@ class Image(models.Model):
         return self.likes.count()
     @classmethod
     def all_images(cls):
-        return cls.objects.all()
+        return cls.objects.order_by("-id")
 
     def __str__(self):
         return self.image_name
