@@ -4,9 +4,10 @@
 {{block.super}}
 <h1>Welcome {{name}}</h1>
 {% for images in all_images %}
+{{images.image_name}} <br>
 <img src="{{images.user.profile_photo.url}}" alt="" style="height: 25px;"><br>
 <img class="card-img-top" src="{{images.image.url}}" alt="" height="100px"><br>
-{{images.image_name}} <br>
+<a href="{% url 'comments'%}"><button type="button" class="btn btn-success">comments</button></a> <br>
 
 
 {%endfor%}

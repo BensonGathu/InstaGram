@@ -48,11 +48,12 @@ def index(request):
     return render(request,"index.html",{"all_images":all_images})
 
 @login_required(login_url="login")
-def comments(request,id):
-    current_user = request.user
-    all_comments = Comment.get_comments(id)
+def comments(request):
+    image_id= request.GET.get("comments_image_id")
+
+    all_comments = Comment.get_comments(image_id)
     comments = []
-    return render(request,"index.html",{"all_comments":all_comments})
+    return render(request,"comments.html",{"all_comments":all_comments})
 
 @login_required(login_url="login")
 def profile(request):
