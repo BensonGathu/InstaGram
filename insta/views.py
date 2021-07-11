@@ -41,28 +41,36 @@ def logoutpage(request):
     logout(request)
     return redirect('login')
 
-
+@login_required(login_url="login")
 def index(request):
     all_images = Image.all_images()
     return render(request,"index.html",{"all_images":all_images})
 
+@login_required(login_url="login")
 def comments(request,id):
+    current_user = request.user
     all_comments = Comment.get_comments(id)
     return render(request,"index.html",{"all_comments":all_comments})
 
+@login_required(login_url="login")
 def Profile(request):
-    profile = Profile.objects.filter(user = uname).first()
-    images = Image.objects.filter(user =current_user.id).all()
+    user = request.user
+    profile = Profile.objects.filter(user = user).first()
+    ppic = profile.profile_photo
 
-    return render_template("profile.html",{"images":images,"profile":profile})
+    images = Image.objects.filter(user =user).all()
 
+    return render_template("profile.html",{"images":images,"profile":profile,"username":user.username,"ppic":ppic})
+
+
+@login_required(login_url="login")
 def upload_image(request):
     current_user = request.user
     if request.method == 'POST':
-        form = UploadImageForm(request.POST,request.FILES)
+        form = UploadImageForm(request.POST or None,request.FILES)
         if form.is_valid():
             image = form.save(commit=False)
-            image.user = current_user
+            image.user = current_user.profile
             image.save()
         return redirect('index')
     else:
