@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from . models import Profile,Image,Comment,Follow
-from . forms import UploadImageForm,CreateUserForm
+from . forms import UploadImageForm,CreateUserForm,UpdateProfileForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -53,14 +53,24 @@ def comments(request,id):
     return render(request,"index.html",{"all_comments":all_comments})
 
 @login_required(login_url="login")
-def Profile(request):
-    user = request.user
-    profile = Profile.objects.filter(user = user).first()
-    ppic = profile.profile_photo
+def profile(request):
+    images = request.user.profile.posts.all()
+    if request.method == 'POST':
+        prof_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if prof_form.is_valid():
+            prof_form.save()
+            return redirect(request.path_info)
+    else:
+        profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    images = Image.objects.filter(user =user).all()
+    return render(request, 'profile.html', {"images":images,"profile_form":profile_form})
+    # user = request.user
+    # profile = User.objects.filter(user = user)
+    # # ppic = profile.profile_photo
 
-    return render_template("profile.html",{"images":images,"profile":profile,"username":user.username,"ppic":ppic})
+    # images = Image.objects.filter(user =user).all()
+
+    # return render("profile.html",{"images":images,"profile":profile})
 
 
 @login_required(login_url="login")
