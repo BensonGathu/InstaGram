@@ -12,8 +12,10 @@
       <a class="navbar-brand" href="{% url 'index' %}">InstaGram</a>
       <a href="{%url 'new-image'%}">Create Image</a>
     </div>
-  
+    <span> {{request.user }}</span>
+    <span><a href="{% url 'logout'%}">LogOut</a></span>
   </div>
+
 </nav>
 </body>
 </html>
