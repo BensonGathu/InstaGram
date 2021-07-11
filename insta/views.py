@@ -44,12 +44,14 @@ def logoutpage(request):
 @login_required(login_url="login")
 def index(request):
     all_images = Image.all_images()
+    
     return render(request,"index.html",{"all_images":all_images})
 
 @login_required(login_url="login")
 def comments(request,id):
     current_user = request.user
     all_comments = Comment.get_comments(id)
+    comments = []
     return render(request,"index.html",{"all_comments":all_comments})
 
 @login_required(login_url="login")
@@ -86,4 +88,15 @@ def upload_image(request):
     else:
         form = UploadImageForm()
     return render(request,'image.html',{"form":form})
-    
+
+@login_required(login_url="login")
+def search_profile(request):
+    if 'username' in request.GET and request.GET["username"]:
+        search_name = request.GET.get("username")
+        searched_profiles = Profile.search_profile(searched_profiles)
+        message = f"{search_name}"
+
+        return render(request,"search.html",{"message":message,"searched_profiles":searched_profiles})
+    else:
+        message = "Enter a username to search"
+        return render(request,"search.html",{"message":message})
