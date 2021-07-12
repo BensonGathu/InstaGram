@@ -1,3 +1,7 @@
+{% if all_comments %}
 {% for comments in all_comments %}
-    {{comments.comment}}
+    {{comments.comment}} <br>
 {%endfor%}
+{%else%}
+No comments 
+{%endif%}

@@ -48,10 +48,10 @@ def index(request):
     return render(request,"index.html",{"all_images":all_images})
 
 @login_required(login_url="login")
-def comments(request):
+def comments(request,id):
     image_id= request.GET.get("comments_image_id")
 
-    all_comments = Comment.get
+    all_comments = Comment.get_comments(id)
     comments = []
     return render(request,"comments.html",{"all_comments":all_comments})
 
