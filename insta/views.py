@@ -1,10 +1,12 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from . models import Profile,Image,Comment,Follow
-from . forms import UploadImageForm,CreateUserForm,UpdateProfileForm
+from . forms import UploadImageForm,CreateUserForm,UpdateProfileForm,NewCommentForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout 
+from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -49,14 +51,27 @@ def index(request):
 
 @login_required(login_url="login")
 def comments(request,id):
-
     all_comments = Comment.get_comments(id)
-    comments = []
-    return render(request,"comments.html",{"all_comments":all_comments})
+    image = get_object_or_404(Image, pk=id)
+    
+    form = NewCommentForm()
+    if request.method == 'POST':
+        form = NewCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.image = image
+            comment.author = request.user
+            comment.save()
+        return HttpResponseRedirect(request.path_info)       
+        # return redirect('comments')
+
+    else:
+        form = NewCommentForm()
+    return render(request,"comments.html",{"all_comments":all_comments,"form":form})
 
 @login_required(login_url="login")
 def profile(request):
-    images = request.user.profile.posts.all()
+    images = request.user.profile.images.all()
     if request.method == 'POST':
         prof_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if prof_form.is_valid():
@@ -121,9 +136,9 @@ def publicprofile(request, username):
     user_profile = get_object_or_404(User, username=username)
     if request.user == user_profile:
         return redirect('profile')
-    user_posts = user_profile.profile.image.all()
+    user_posts = user_profile.profile.images.all()
     followers = Follow.objects.filter(followers=user_profile.profile)
-    follow_status = None
+    status = None
     for follower in followers:
         if request.user.profile == follower.following:
 
@@ -131,4 +146,5 @@ def publicprofile(request, username):
     
         else:
             status = False
-    return render(request, 'user_profile.html', {"user_profile":user_profile,"user_posts":user_posts,"followers":followers,"status":status})
+    return render(request, 'public_profile.html', {"user_profile":user_profile,"user_posts":user_posts,"followers":followers,"status":status})
+

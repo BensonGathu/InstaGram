@@ -12,7 +12,7 @@ class Profile(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username}'s Profile"
+        return self.user.username
     
     def save_profile(self):
         self.save()
@@ -29,7 +29,7 @@ class Image(models.Model):
     image = models.ImageField(upload_to = 'images/',default='SOME IMAGE')
     image_name = models.CharField(max_length=50)
     image_caption = models.CharField(max_length=200)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='images')
     likes = models.ManyToManyField(User, related_name='likes', blank=True, )
     date_created = models.DateTimeField(auto_now_add = True)
 

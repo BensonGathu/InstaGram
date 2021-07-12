@@ -15,7 +15,8 @@ urlpatterns = [
     path('search/',views.search_profile,name='search_results'),
     path('comments/',views.comments,name='comments'),
     path('follow/<pk>',views.follow,name='follow'),
-    path('unfollow/<pk>',views.unfollow,name='unfollow')
+    path('unfollow/<pk>',views.unfollow,name='unfollow'),
+    path('publicprofile/<username>',views.publicprofile,name="publicprofle"),
 
 ]
 
