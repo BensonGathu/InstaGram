@@ -49,7 +49,6 @@ def index(request):
 
 @login_required(login_url="login")
 def comments(request,id):
-    image_id= request.GET.get("comments_image_id")
 
     all_comments = Comment.get_comments(id)
     comments = []
@@ -116,3 +115,20 @@ def unfollow(request,pk):
         unfollow = Follow.objects.filter(following=request.user.profile,followers=user)
         unfollow.delete()
         return redirect('profile')
+
+@login_required(login_url='login')
+def publicprofile(request, username):
+    user_profile = get_object_or_404(User, username=username)
+    if request.user == user_profile:
+        return redirect('profile')
+    user_posts = user_profile.profile.image.all()
+    followers = Follow.objects.filter(followers=user_profile.profile)
+    follow_status = None
+    for follower in followers:
+        if request.user.profile == follower.following:
+
+            status = True
+    
+        else:
+            status = False
+    return render(request, 'user_profile.html', {"user_profile":user_profile,"user_posts":user_posts,"followers":followers,"status":status})
