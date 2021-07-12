@@ -101,3 +101,18 @@ def search_profile(request):
     else:
         message = "Enter a username to search"
         return render(request,"search.html",{"message":message})
+
+@login_required(login_url='login')
+def follow(request,pk):
+    if request.method == "GET":
+        user = Profile.objects.get(pk=pk)
+        follow = Follow(following=request.user.profile,followers=user)
+        follow.save()
+        return redirect('profile')
+
+def unfollow(request,pk):
+    if request.method == 'GET':
+        user = Profile.objects.get(pk=pk)
+        unfollow = Follow.objects.filter(following=request.user.profile,followers=user)
+        unfollow.delete()
+        return redirect('profile')

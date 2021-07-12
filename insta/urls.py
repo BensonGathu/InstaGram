@@ -13,7 +13,9 @@ urlpatterns = [
     path('logout/',views.logoutpage,name='logout'),
     path('profile/',views.profile,name='profile'),
     path('search/',views.search_profile,name='search_results'),
-    path('comments/',views.comments,name='comments')
+    path('comments/',views.comments,name='comments'),
+    path('follow/<pk>',views.follow,name='follow'),
+    path('unfollow/<pk>',views.unfollow,name='unfollow')
 
 ]
 

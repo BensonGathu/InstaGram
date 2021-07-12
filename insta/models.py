@@ -75,8 +75,8 @@ class Comment(models.Model):
 
 
 class Follow(models.Model):
-    follower = models.ForeignKey(Profile, on_delete=models.CASCADE,related_name='follower')
-    followed = models.ForeignKey(Profile, on_delete=models.CASCADE,related_name='followed')
+    following = models.ForeignKey(Profile, on_delete=models.CASCADE,related_name='following',default=0)
+    followers = models.ForeignKey(Profile, on_delete=models.CASCADE,related_name='followers',default=0)
 
     def __str__(self):
         return f'{self.follower} Follow'

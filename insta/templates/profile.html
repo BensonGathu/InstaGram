@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-3">
-                        <img class="rounded-circle account-img" src="{{ user.profile.profile.url }}" width="100%">
+                        <img class="rounded-circle account-img" src="{{ user.profile.profile_photo.url }}" width="100%">
                     </div>
                     <div class="col-md-6 mt-3">
                         <div class="media-body">
@@ -18,8 +18,8 @@
                                     data-target=".bd-example-modal-md"><strong>Edit Profile</strong></a>
                             </div>
                             <div class="post-details mt-3 mb-3">
-                                <span class="mr-5"><strong>{{images.count}}</strong> Posts</span>
-                                <span class="mr-5"> <strong>{{ user.profile.followers.count }}</strong> followers</span>
+                                <span class="mr-5"><strong>{{images.count}}</strong> Posts</span><br>
+                                <span class="mr-5"> <strong>{{ user.profile.followers.count }}</strong> followers</span><br>
                                 <span class="mr-5"> <strong>{{ user.profile.following.count }}</strong> following</span>
                             </div>
                             <h5>{{ user.profile.name }}</h5>
@@ -48,9 +48,8 @@
         <div class="card">
             <div class="card-body">
                 <img src="{{image.image.url}}" alt="{{image.caption}}" class="card-img" style="height: 150px;">
-                <p>{{image.likes.count}}<i class="far fa-heart mx-auto"
-                        aria-hidden="true"></i> {{image.comments.count}}<i class="far fa-comment hearticon mx-auto"
-                        aria-hidden="true"></i></p>
+                <p>{{image.likes.count}}<i class="far fa-heart mx-auto"aria-hidden="true"></i> 
+                    {{image.comments.count}}<i class="far fa-comment hearticon mx-auto"aria-hidden="true"></i></p>
             </div>
         </div>
         {% endfor %}
