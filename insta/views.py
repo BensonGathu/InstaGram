@@ -122,14 +122,14 @@ def follow(request,pk):
         user = Profile.objects.get(pk=pk)
         follow = Follow(following=request.user.profile,followers=user)
         follow.save()
-        return redirect('profile')
+        return redirect('publicprofile',user.user.username)
 
 def unfollow(request,pk):
     if request.method == 'GET':
         user = Profile.objects.get(pk=pk)
         unfollow = Follow.objects.filter(following=request.user.profile,followers=user)
         unfollow.delete()
-        return redirect('profile')
+        return redirect('publicprofile',user.user.username)
 
 @login_required(login_url='login')
 def publicprofile(request, username):

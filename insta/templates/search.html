@@ -15,8 +15,9 @@
     {% if searched_profiles %}
     {% for profile in searched_profiles %}
         {{profile.user}}
-        <img src="{{profile.profile_photo.url}}" alt="" style="height: 25px;">
+        <a href="{% url 'publicprofile' profile.user.username %}"><img src="{{profile.profile_photo.url}}" alt="" style="height: 25px;"></a>
         <br>
+      
     {% endfor%}
     {% endif %}
   </div>
