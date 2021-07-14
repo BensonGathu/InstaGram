@@ -1,3 +1,6 @@
+{% extends 'base.html'%}
+
+{% block content %}
 <div class="account-heading">
     <span class="mr-3 text-secondary username">{{ user_profile.username }}</span>
     {% if status %}
@@ -33,5 +36,5 @@
    {% endfor %}
     </div>
       
-   
+   {% endblock %}
    

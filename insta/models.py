@@ -58,7 +58,7 @@ class Image(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     comment = models.CharField(max_length=300)
-    image = models.ForeignKey(Image,on_delete=models.CASCADE)
+    image = models.ForeignKey(Image,on_delete=models.CASCADE,related_name="comments")
     date_created = models.DateTimeField(auto_now_add=True)
 
     def save_comment(self):
