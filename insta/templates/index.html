@@ -2,13 +2,30 @@
 {% load static %}
 {% block content %}
 {{block.super}}
-<h1>Welcome {{name}}</h1>
 {% for images in all_images %}
-{{images.image_name}} <br>
-<img src="{{images.user.profile_photo.url}}" alt="" style="height: 25px;"><br>
-<img class="card-img-top" src="{{images.image.url}}" alt="" height="100px"><br>
-{{images.comments.all}}
-<a href="{% url 'comments' images.id %}"><button type="button" class="btn btn-success">comments</button></a> <br>
+<div class="container">
+<img class="rounded-circle account-img" src="{{images.user.profile_photo.url}}" alt="" style="height: 25px;">
+{{images.user}}
+
+<div class="card" style="width: 18rem;">
+    <img src="{{images.image.url}}" class="card-img-top" alt="...">
+    <!-- <div class="card-body">
+      
+    </div> -->
+  </div>
+  <a href="{% url 'comments' images.id %}"><i class="fa fa-comments-o fa-2x" aria-hidden="true" style="color: black;"></i></a>
+  <div class="row">
+      <div class="col-sm-3"> <b>{{images.user}}</b> 
+   </div>
+   <div class="col-sm-3">
+  <i>{{images.image_caption}}</i>
+</div>
+</div>
+  <a href="{% url 'comments' images.id %}"><button type="button" class="btn btn-light">add a comment..</button></a> 
+
+</div>
+<br>
+
 
 
 {%endfor%}
