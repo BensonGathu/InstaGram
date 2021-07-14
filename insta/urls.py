@@ -17,6 +17,7 @@ urlpatterns = [
     path('follow/<pk>',views.follow,name='follow'),
     path('unfollow/<pk>',views.unfollow,name='unfollow'),
     path('publicprofile/<username>',views.publicprofile,name="publicprofile"),
+    path('newprofile/',views.myprofile,name="newprofile"),
 
 ]
 

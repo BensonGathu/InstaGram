@@ -33,9 +33,10 @@
             aria-hidden="true">
             <div class="modal-dialog modal-md ">
                 <div class="modal-content">
-                    <form action="" method="post" novalidate enctype="multipart/form-data" class="mr-4 mt-4 ml-4 mb-4">
+                    <form action="{% url 'profile' %}" method="post" novalidate enctype="multipart/form-data" class="mr-4 mt-4 ml-4 mb-4">
                         {% csrf_token%}
                         {{ profile_form}}
+                        {{user_form}}
                         <button type="submit" class="btn btn-primary btn-sm"> Update Profile</button>
                     </form>
                 </div>

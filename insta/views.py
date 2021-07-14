@@ -71,16 +71,24 @@ def comments(request,id):
 
 @login_required(login_url="login")
 def profile(request):
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)
+
     images = request.user.profile.images.all()
     if request.method == 'POST':
-        prof_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        if prof_form.is_valid():
-            prof_form.save()
+        user_form = UpdateProfileForm(request.POST,instance=request.user) 
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if profile_form.is_valid() and user_form.is_valid():
+            profile_form.save()
+            user_form.save()
             return redirect(request.path_info)
     else:
         profile_form = UpdateProfileForm(instance=request.user.profile)
+        user_form = UpdateProfileForm(instance=request.user)
 
-    return render(request, 'profile.html', {"images":images,"profile_form":profile_form})
+    return render(request, 'profile.html', {"images":images,"profile_form":profile_form,"user-form":user_form})
     # user = request.user
     # profile = User.objects.filter(user = user)
     # # ppic = profile.profile_photo
@@ -147,4 +155,31 @@ def publicprofile(request, username):
         else:
             status = False
     return render(request, 'public_profile.html', {"user_profile":user_profile,"user_posts":user_posts,"followers":followers,"status":status})
+
+@login_required(login_url='login')
+def myprofile(request):
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST,request.FILES,instance=request.user.profile)
+
+        if form.is_valid():
+            prof = form.save(commit=False)
+            prof.user = request.user
+            prof.save()
+        return redirect('index')
+    else :
+        form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request,'newprofileform.html',{"form":form})
+
+
+
+
+
+
+
+
 

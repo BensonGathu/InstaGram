@@ -5,7 +5,7 @@
 {% for images in all_images %}
 <div class="container">
 <img class="rounded-circle account-img" src="{{images.user.profile_photo.url}}" alt="" style="height: 25px;">
-{{images.user}}
+<strong>{{images.user}}</strong>
 
 <div class="card" style="width: 18rem;">
     <img src="{{images.image.url}}" class="card-img-top" alt="...">
