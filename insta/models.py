@@ -29,7 +29,7 @@ class Image(models.Model):
     image = models.ImageField(upload_to = 'images/',default='SOME IMAGE')
     image_name = models.CharField(max_length=50)
     image_caption = models.CharField(max_length=200)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='images')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='likes', blank=True, )
     date_created = models.DateTimeField(auto_now_add = True)
 
