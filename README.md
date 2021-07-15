@@ -18,6 +18,7 @@ A clone of the website for the popular photo app Instagram.
 4.Profile Foreign key
 5.Likes
 6.Comments
+
 * You must implement the save, update and delete methods in the models.
 * Your project must have a search form that when submitted calls a search function in the view function and redirects to a search results page.
 * When a user clicks on an Image he/she should be redirected to where the image is displayed and should also see the details of the Image.
