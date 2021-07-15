@@ -1,6 +1,9 @@
+{% extends 'base.html'%}
+
+{% block content %}
 {% if all_comments %}
 {% for comments in all_comments %}
-    {{comments.author}} {{comments.comment}} <br>
+    <b>{{comments.author}}:</b> <i>{{comments.comment}}</i> <br>
 {%endfor%}
 {%else%}
 No comments 
@@ -15,8 +18,10 @@ No comments
             {{ form }}
         </div>
         <div class="col-md-2 mt-4" >
-            <button type="submit" class="btn btn-sm btn-outline-primary" style="margin-top:14px; margin-left:-10px">post</button>
+            <button type="submit" class="btn btn-sm btn-outline-primary" style="margin-top:14px; margin-left:-1000px">post</button>
         </div>
 
     </div>
 </form>
+
+{%endblock%}

@@ -36,7 +36,7 @@ A clone of the website for the popular photo app Instagram.
   * Django Framework
   * Postgressql                                                                 |
 ## Link to live site
-[](link)
+[https://instagram296.herokuapp.com/](link)
 ## License
 Copyright (c) [2021] [Benson Gathu]
 
