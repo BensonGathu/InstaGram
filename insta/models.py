@@ -18,7 +18,7 @@ class Profile(models.Model):
         self.save()
 
     def delete_profile(self):
-        self.delete()
+        self.delete() 
 
     @classmethod
     def search_profile(cls,name):
